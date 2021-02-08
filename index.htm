@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+      }
+
+      body {
+        background-color: #f1f1f1;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .clock {
+        border: 1px solid black;
+        padding: 1em;
+        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 80%;
+        height: 70%;
+        border: none;
+        opacity: 0.9;
+        border-top-left-radius: 40em;
+        border-bottom-right-radius: 40em;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      .clock:hover {
+        cursor: pointer;
+      }
+      h1 {
+        background-color: rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(30px);
+        padding: 1em;
+        min-width: 400px;
+        overflow: hidden;
+        margin-bottom: 1em;
+        text-align: center;
+        border-top-left-radius: 40em;
+        border-bottom-right-radius: 40em;
+        text-shadow: 2px 2px 4px #e2dddd;
+        font-weight: bold;
+        font-size: 2.4em;
+      }
+
+      @media only screen and (max-width: 724px) {
+        h1 {
+          min-width: 100px;
+          background-color: transparent;
+          backdrop-filter: none;
+        }
+        .clock {
+          width: 60%;
+          padding: 2em;
+          border-top-left-radius: 0px;
+          border-bottom-right-radius: 0px;
+          border-radius: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock" id="clock">
+      <h1 id="hours"></h1>
+      <h1 id="minutes"></h1>
+      <h1 id="seconds"></h1>
+    </div>
+    <script>
+      function background () {
+        let [n1, n2, n3, n4, n5, n6, n7, n8, n9] = [
+          Math.floor(Math.random() * 400),
+          Math.floor(Math.random() * 200),
+          Math.floor(Math.random() * 50),
+          Math.floor(Math.random() * 2000),
+          Math.floor(Math.random() * 1234),
+          Math.floor(Math.random() * 456),
+          Math.floor(Math.random() * 5678),
+          Math.floor(Math.random() * 1234),
+          Math.floor(Math.random() * 423)
+        ]
+
+        let array = [
+          `rgb(${n1},${n2},${n3})`,
+          `rgb(${n4},${n5},${n6})`,
+          `rgb(${n7},${n8},${n9})`
+        ]
+        return array
+      }
+      function val (id) {
+        return document.getElementById(id)
+      }
+      let body = document.querySelector('body')
+
+      let [h, m, s, clock] = [
+        val('hours'),
+        val('minutes'),
+        val('seconds'),
+        val('clock')
+      ]
+
+      setInterval(() => {
+        if (new Date().getHours() > 12) {
+          h.innerHTML = `Hours : ${new Date().getHours() - 12}`
+        } else {
+          h.innerHTML = `Hours : ${new Date().getHours()}`
+        }
+
+        m.innerHTML = `Minutes : ${new Date().getMinutes()}`
+        s.innerHTML = `Seconds : ${new Date().getSeconds()}`
+
+        let color = background()
+        clock.style.backgroundImage = `linear-gradient(90deg,${color[0]},${color[1]},${color[2]})`
+      }, 1000)
+    </script>
+  </body>
+</html>
